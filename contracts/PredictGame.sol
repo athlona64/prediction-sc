@@ -158,7 +158,7 @@ contract PreditctGame is VRFConsumerBase, Ownable {
         Game storage gameInfo = gameRound[_num];
         require(gameInfo.deadline < block.timestamp, "NOT DEADLINE");
         require(gameInfo.join[msg.sender] == true || gameInfo.host == msg.sender, "NOT YOU");
-        if(gameInfo.host == msg.sender) {
+        if(gameInfo.host == msg.sender && gameInfo.hostOut == false) {
             gameInfo.hostOut = true;
             (bool sent,) = gameInfo.host.call{value: gameInfo.amount.mul(gameInfo.maxPlayers)}("");
             require(sent, "Failed to send Ether");            
