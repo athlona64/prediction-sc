@@ -141,11 +141,11 @@ contract PreditctGame is VRFConsumerBase, Ownable {
                     //win
                     countWinner++;
             
-                    (bool sent,) = gameInfo.players[i].call{value: gameInfo.amount}("");
+                    (bool sent,) = gameInfo.players[i].call{value: gameInfo.amount.mul(2)}("");
                     require(sent, "Failed to send Ether");
                 } else{
                     //lose
-                    (bool sent,) = gameInfo.host.call{value: gameInfo.amount.mul(2)}("");
+                    (bool sent,) = gameInfo.host.call{value: gameInfo.amount}("");
                     require(sent, "Failed to send Ether");
                 }
             }
